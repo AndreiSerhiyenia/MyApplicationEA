@@ -54,14 +54,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginBottom="277dp"
-            android:text="@string/rejestracja_u_ytkownika"
+            android:text="Rejestracja użytkownika"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/editTextTextPassword"
-            android:layout_width="342dp"
-            android:layout_height="34dp"
+            android:layout_width="347dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:ems="10"

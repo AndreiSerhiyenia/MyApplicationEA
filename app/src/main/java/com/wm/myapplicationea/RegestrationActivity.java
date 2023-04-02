@@ -1,24 +1,25 @@
 package com.wm.myapplicationea;
 
+import static com.wm.myapplicationea.utils.Constants.LOGIN;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toolbar;
-import com.wm.myapplicationea.dto.LoginDto;
-import com.wm.myapplicationea.dto.RegistrationDTO;
 
-import static com.wm.myapplicationea.dto.Constant.LOGIN;
+import com.wm.myapplicationea.dto.LoginDto;
+import com.wm.myapplicationea.dto.RegistrationDto;
+
 
 public class RegestrationActivity extends AppCompatActivity {
-
-    private RegistrationDTO reg;
+    private RegistrationDto reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,8 @@ public class RegestrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_regestration);
 
         setTitle("Rejestruj konto");
+//        getWindow().getDecorView().setBackgroundColor(Color.CYAN);
+
         EditText login = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText pwd = (EditText) findViewById(R.id.editTextTextPassword2);
         EditText pwd2 = (EditText) findViewById(R.id.editTextTextPassword);
@@ -36,8 +39,7 @@ public class RegestrationActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 boolean isLoginEmpty = login.getText().toString().isEmpty();
-                reg = new RegistrationDTO(login.getText().toString(), pwd.getText().toString(),
-                        pwd2.getText().toString());
+                reg = new RegistrationDto(login.getText().toString(), pwd.getText().toString(), pwd2.getText().toString());
                 if (hasFocus) {
                     updateComponent(login, "", Color.WHITE);
                 } else {
@@ -50,8 +52,7 @@ public class RegestrationActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 boolean isPwdEmpty = pwd.getText().toString().isEmpty();
-                reg = new RegistrationDTO(login.getText().toString(), pwd.getText().toString(),
-                        pwd2.getText().toString());
+                reg = new RegistrationDto(login.getText().toString(), pwd.getText().toString(), pwd2.getText().toString());
                 if (hasFocus) {
                     updateComponent(pwd, "", Color.WHITE);
                 } else {
@@ -60,12 +61,30 @@ public class RegestrationActivity extends AppCompatActivity {
             }
         });
 
-        pwd2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        //pwd2.addTextChangedListener(new TextWatcher()
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+
+        /*
+        {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 boolean isPwd2Empty = pwd2.getText().toString().isEmpty();
-                reg = new RegistrationDTO(login.getText().toString(), pwd.getText().toString(),
-                        pwd2.getText().toString());
+                reg = new RegistrationDto(login.getText().toString(), pwd.getText().toString(), pwd2.getText().toString());
                 String pwdval = pwd.getText().toString();
                 String pwd2val = pwd2.getText().toString();
                 if (hasFocus){
@@ -82,13 +101,19 @@ public class RegestrationActivity extends AppCompatActivity {
                     }
                 }
             }
+
         });
+        */
+        login.addTextChangedListener(textWatcher);
+        pwd.addTextChangedListener(textWatcher);
+        pwd2.addTextChangedListener(textWatcher);
 
         registrationBut.setOnClickListener(view -> {
-           /* String loginValue = login.getText().toString();
-            String pwdValue = pwd.getText().toString();
-            String pwd2Value = pwd2.getText().toString();*/
-            boolean equalsPwd2 = reg.getHaslo().equals(reg.getHaslo2());
+            reg = new RegistrationDto(login.getText().toString(), pwd.getText().toString(), pwd2.getText().toString());
+            //String loginValue = login.getText().toString();
+            //String pwdValue = pwd.getText().toString();
+            //String pwd2Value = pwd2.getText().toString();
+            boolean equalsPwd2 = reg.getHaslo2().equals(reg.getHaslo());
 
             boolean isLoginEmpty = reg.getLogin().isEmpty();
             updateComponent(login, isLoginEmpty ? "Podaj login" : "", isLoginEmpty ? Color.RED : Color.WHITE);
@@ -97,8 +122,10 @@ public class RegestrationActivity extends AppCompatActivity {
             boolean isPwd2Empty = reg.getHaslo2().isEmpty();
             updateComponent(pwd2, isPwd2Empty ? "Powtórz hasło" : "", isPwd2Empty ? Color.RED : Color.WHITE);
 
-
-            if (!equalsPwd2){
+            //Intent intentRegestration = new Intent(this, MainActivity.class);
+            //intentRegestration.putExtra("login", getLogin);
+            //intentRegestration.putExtra("password", getHaslo);
+            if (!reg.isHasloEquals()){
                 pwd2.setText("");
                 updateComponent(pwd2, "Powtórzone hasło nie jest identyczne", Color.RED);
             } else if (reg.hasFieldsFilled()) {

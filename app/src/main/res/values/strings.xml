@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">My ApplicationEA</string>
-    <string name="login">UserName</string>
-    <string name="haslo">Hasło</string>
-    <string name="rejestracja_u_ytkownika">Rejestracja użytkownika</string>
 </resources>
