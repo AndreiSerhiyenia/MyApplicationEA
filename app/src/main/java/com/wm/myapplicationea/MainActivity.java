@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.wm.myapplicationea.dto.LoginDto;
+
+import static com.wm.myapplicationea.dto.Constant.LOGIN;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
         okBut.setOnClickListener(but -> {
             Bundle arguments = getIntent().getExtras();
             if (arguments != null) {
-                String login = arguments.get("login").toString();
-                String password = arguments.get("password").toString();
-                Toast.makeText(this, login, Toast.LENGTH_SHORT).show();
+                LoginDto loginDto = (LoginDto)arguments.get(LOGIN);
+                Toast.makeText(this, loginDto.getLogin, Toast.LENGTH_SHORT).show();
             }
+
         });
 
     }

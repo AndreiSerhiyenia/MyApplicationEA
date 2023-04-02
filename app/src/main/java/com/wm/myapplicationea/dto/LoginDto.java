@@ -1,7 +1,17 @@
 package com.wm.myapplicationea.dto;
 
-public class LoginDto {
+import java.io.Serializable;
+
+public class LoginDto implements Serializable {
+    public int getLogin;
+    private String login;
+private String haslo;
+
+
+    public LoginDto(String login, String haslo) {
 
 
 
+
+    }
 }
